@@ -8,6 +8,7 @@ import router from "./Routes/SImpleRouter";
 import carRouter from "./Routes/carRouter";
 import songRouter from "./Routes/SongRoute";
 
+
 const server = express();
 
 server.use(cors());
@@ -26,10 +27,11 @@ server.use("*", ErrorHandler);
 
 server.listen(config.webPort, () => {
   console.log(`listening on http://${config.webPort}`);
-  console.log(
-    `for testing use the path http://localhost:${config.webPort}/api/v1/test/checkOK`
-  );
-  console.log(
-    `for testing use the path http://localhost:${config.webPort}/api/v1/test/checkBAD`
-  );
+  console.log(config.connectionString);
+  // console.log(
+  //   `for testing use the path http://localhost:${config.webPort}/api/v1/test/checkOK`
+  // );
+  // console.log(
+  //   `for testing use the path http://localhost:${config.webPort}/api/v1/test/checkBAD`
+  // );
 });

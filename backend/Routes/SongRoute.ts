@@ -7,6 +7,7 @@ import {
   getSongById,
   updateSong,
 } from "../Logic/SongsLogic";
+import { getAllSongsMongo } from "../Logic/SongMongoLogic";
 
 const songRouter = express.Router();
 
@@ -17,6 +18,7 @@ songRouter.get(
     return response.status(200).json(await getAllSongs());
   }
 );
+
 
 songRouter.get(
   "/songById/:id",

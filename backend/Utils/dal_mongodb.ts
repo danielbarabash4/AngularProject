@@ -11,3 +11,5 @@ const connect = async (): Promise<void> => {
     console.log("error in connection:\n", err);
   }
 };
+
+export default {connect};

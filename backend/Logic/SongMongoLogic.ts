@@ -1,12 +1,13 @@
+import { BookModel } from './../Models/BookModel';
 import { ISongModel, SongModel } from "./../Models/SongMongo";
 import { ICatModel } from "./../Models/CatMongo";
 import {
   ClientError,
-  VideoNotFound,
-} from "./../../../template/Models/Clients-Errors";
+  VideoNotFoundError,
+} from "../Models/Clients-Errors";
 
 //SELECT * FROM songs
-const getAllSongs = async (): Promise<ISongModel[]> => {
+const getAllSongsMongo = async (): Promise<ISongModel[]> => {
   //get all songs without virtual fields
   //return SongModel.find().exec();
 
@@ -15,9 +16,9 @@ const getAllSongs = async (): Promise<ISongModel[]> => {
 };
 
 //SELECT & FROM songs WHERE id == ???
-const getSongById = async (id: string): Promise<ISongModel> => {
+const getSongById = async (id: number): Promise<ISongModel> => {
   const singleSong = await SongModel.findById(id).populate("category").exec();
-  if (!singleSong) throw new VideoNotFound(id);
+  if (!singleSong) throw new VideoNotFoundError(id);
   return singleSong;
 };
 
@@ -35,14 +36,14 @@ const updateSong = async (song: ISongModel): Promise<ISongModel> => {
   const updateSong = await SongModel.findByIdAndUpdate(song._id, song, {
     returnOriginal: false,
   }).exec();
-  if (!updateSong) throw new VideoNotFound(song._id);
+  if (!updateSong) throw new VideoNotFoundError(song._id);
   return updateSong;
 };
 
 //delete from songs...
-const deleteSong = async (id: string): Promise<void> => {
+const deleteSong = async (id: number): Promise<void> => {
   const deleteSong = await SongModel.findByIdAndDelete(id).exec();
-  if (!deleteSong) throw new VideoNotFound(id);
+  if (!deleteSong) throw new VideoNotFoundError(id);
 };
 
 //select title,url from songs
@@ -51,7 +52,7 @@ const getPartialSongInfo = (): Promise<ISongModel[]> => {
 };
 
 export {
-  getAllSongs,
+  getAllSongsMongo,
   getSongById,
   addSong,
   updateSong,
