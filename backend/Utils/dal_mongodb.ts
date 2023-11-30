@@ -3,7 +3,7 @@ import config from "./Config";
 
 //create a connection to mongoDB
 
-const connect = async (): Promise<void> => {
+const connectMongo = async (): Promise<void> => {
   try {
     const db = await mongoose.connect(config.connectionString);
     console.log("connected to mongoDB");
@@ -12,4 +12,4 @@ const connect = async (): Promise<void> => {
   }
 };
 
-export default {connect};
+export default {connectMongo};

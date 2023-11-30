@@ -1,10 +1,14 @@
-import { BookModel } from './../Models/BookModel';
+import { IUserModel, UserModel } from './../Models/User';
+import { BookModel, IBookModel } from './../Models/BookModel';
 import { ISongModel, SongModel } from "./../Models/SongMongo";
 import { ICatModel } from "./../Models/CatMongo";
 import {
   ClientError,
   VideoNotFoundError,
 } from "../Models/Clients-Errors";
+import dal_mongodb from "../Utils/dal_mongodb";
+import { NewUserModel } from '../Models/NewUser';
+
 
 //SELECT * FROM songs
 const getAllSongsMongo = async (): Promise<ISongModel[]> => {
@@ -14,6 +18,21 @@ const getAllSongsMongo = async (): Promise<ISongModel[]> => {
   //get all songs with virtual fields
   return SongModel.find().populate("category").exec();
 };
+
+const getUser = async ()=>{
+  return UserModel.find().exec()
+}
+
+const addUser = async (newUser :IUserModel)=>{
+  console.log(newUser);
+  return UserModel.create(newUser);
+}
+
+
+const getBook = async ()=>{
+  //const db = await dal_mongodb.connectMongo()
+  return BookModel.find().exec();
+}
 
 //SELECT & FROM songs WHERE id == ???
 const getSongById = async (id: number): Promise<ISongModel> => {
@@ -58,6 +77,9 @@ export {
   updateSong,
   deleteSong,
   getPartialSongInfo,
+  getBook,
+  getUser,
+  addUser,
 };
 
 /*

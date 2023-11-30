@@ -7,7 +7,11 @@ import {
   getSongById,
   updateSong,
 } from "../Logic/SongsLogic";
-import { getAllSongsMongo } from "../Logic/SongMongoLogic";
+import { addUser, getAllSongsMongo, getBook, getUser } from "../Logic/SongMongoLogic";
+import mongoose from "mongoose";
+import config from "../Utils/Config";
+import { BookModel } from "../Models/BookModel";
+import dal_mongodb from "../Utils/dal_mongodb";
 
 const songRouter = express.Router();
 
@@ -19,6 +23,42 @@ songRouter.get(
   }
 );
 
+songRouter.get(
+  "/getBook",
+  async (request: Request, response: Response, next: NextFunction) => {
+    console.log("in song route");
+    const db = await dal_mongodb.connectMongo();
+    return response.status(200).json(await getBook());
+  }
+);
+
+songRouter.get(
+  "/songsMongo",
+  async (request: Request, response: Response, next: NextFunction) => {
+    console.log("in song route");
+    const db = await dal_mongodb.connectMongo();
+    return response.status(200).json(await getAllSongsMongo());
+  }
+);
+
+songRouter.get(
+  "/getUser",
+  async (request: Request, response: Response, next: NextFunction) => {
+    console.log("in song route");
+    const db = await dal_mongodb.connectMongo();
+    return response.status(200).json(await getUser());
+  }
+);
+
+songRouter.post(
+  "/addUser",
+  async (request: Request, response: Response, next: NextFunction) => {
+    const newUser = request.body;
+    await dal_mongodb.connectMongo();
+    return response.status(201).json(await addUser(newUser));
+    console.log("added user");
+  }
+);
 
 songRouter.get(
   "/songById/:id",
@@ -55,9 +95,10 @@ songRouter.put(
 );
 
 songRouter.get(
-  "/getCat",async (request: Request, response: Response, next: NextFunction) => {
+  "/getCat",
+  async (request: Request, response: Response, next: NextFunction) => {
     return response.status(200).json(await getCat());
   }
-)
+);
 
 export default songRouter;
