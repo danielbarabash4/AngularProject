@@ -23,4 +23,4 @@ const UserSchema = new Schema<IUserModel>({
   job: Array,
 });
 
-export const UserModel = model<IUserModel>("worker", UserSchema);
+export const UserModel = model<IUserModel>("users", UserSchema);

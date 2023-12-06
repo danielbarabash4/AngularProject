@@ -1,5 +1,4 @@
 import { IUserModel, UserModel } from './../Models/User';
-import { BookModel, IBookModel } from './../Models/BookModel';
 import { ISongModel, SongModel } from "./../Models/SongMongo";
 import { ICatModel } from "./../Models/CatMongo";
 import {
@@ -7,7 +6,7 @@ import {
   VideoNotFoundError,
 } from "../Models/Clients-Errors";
 import dal_mongodb from "../Utils/dal_mongodb";
-import { NewUserModel } from '../Models/NewUser';
+
 
 
 //SELECT * FROM songs
@@ -26,12 +25,6 @@ const getUser = async ()=>{
 const addUser = async (newUser :IUserModel)=>{
   console.log(newUser);
   return UserModel.create(newUser);
-}
-
-
-const getBook = async ()=>{
-  //const db = await dal_mongodb.connectMongo()
-  return BookModel.find().exec();
 }
 
 //SELECT & FROM songs WHERE id == ???
@@ -77,7 +70,6 @@ export {
   updateSong,
   deleteSong,
   getPartialSongInfo,
-  getBook,
   getUser,
   addUser,
 };

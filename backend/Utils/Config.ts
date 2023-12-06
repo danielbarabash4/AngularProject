@@ -3,7 +3,7 @@ class Config {}
 class DevelopmentConfig extends Config{
     //mongoDB
     public isDevelopment = true;
-    public connectionString = "mongodb://localhost:27017/crud"
+    public connectionString = "mongodb://localhost:27017/wolt"
 
 
     //MySQL
